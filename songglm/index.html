@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="Hugo 0.16-DEV" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,700" rel="stylesheet" type="text/css">
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/styles/github.min.css">
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+  <link rel="stylesheet" href="../css/custom.css">
+  <link rel="alternate" href="index.xml" type="application/rss+xml" title="NEXTLab">
+  <link rel="shortcut icon" href="favicon.png" type="image/x-icon" />
+  <title>SongGLM: Lyric-to-Melody Generation with 2D Alignment Encoding and Multi-Task Pre-Training</title>
+</head>
+
+<body>
+
+  <div class="container">
+
+    <header role="banner">
+
+    </header>
+
+
+    <main role="main">
+      <article itemscope itemtype="https://schema.org/BlogPosting">
+        <h1 class="entry-title" itemprop="headline">SongGLM: Lyric-to-Melody Generation with 2D Alignment Encoding and Multi-Task Pre-Training
+        </h1>
+
+        <section itemprop="entry-text">
+          <br>
+          <p>
+            <a href="" target="_blank">Paper</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <a href="" target="_blank">Code</a>
+          </p>
+
+          <h2 id="authors">Authors</h2>
+          <ul>
+            <li>Jiaxing Yu (Zhejiang University) <a href="mailto:yujx@zju.edu.cn">yujx@zju.edu.cn</a></li>
+            <li>Xinda Wu (Zhejiang University) <a href="mailto:wuxinda@zju.edu.cn">wuxinda@zju.edu.cn</a></li>
+            <li>Yunfei Xu (OPPO) <a href="mailto:xuyunfei@oppo.com">xuyunfei@oppo.com</a></li>
+            <li>Tieyao Zhang (Zhejiang University) <a href="mailto:kreutzer0421@zju.edu.cn">kreutzer0421@zju.edu.cn</a></li>
+            <li>Songruoyao Wu (Zhejiang University) <a href="mailto:wsry@zju.edu.cn">wsry@zju.edu.cn</a></li>
+            <li>Le Ma (Zhejiang University) <a href="mailto:maller@zju.edu.cn">maller@zju.edu.cn</a></li>
+            <li>Kejun Zhang* (Zhejiang University) <a href="mailto:zhangkejun@zju.edu.cn">zhangkejun@zju.edu.cn</a></li>
+          </ul>
+          <p><small>* Corresponding Author</small></p>
+          <h2 id="abstract">Abstract</h2>
+          <div style="text-align:left">
+            <p>Lyric-to-melody generation aims to automatically create melodies based on given lyrics, requiring the capture of complex and subtle correlations between them. However, previous works usually suffer from two main challenges: 1) lyric-melody alignment modeling, which is often simplified to one-syllable/word-to-one-note alignment, while others have the problem of low alignment accuracy; 2) lyric-melody harmony modeling, which usually relies heavily on intermediates or strict rules, limiting model's capabilities and generative diversity. In this paper, we propose SongGLM, a lyric-to-melody generation system that leverages 2D alignment encoding and multi-task pre-training based on the General Language Model (GLM) to guarantee the alignment and harmony between lyrics and melodies. Specifically, 1) we introduce a unified symbolic song representation for lyrics and melodies with word-level and phrase-level (2D) alignment encoding to capture the lyric-melody alignment; 2) we design a multi-task pre-training framework with hierarchical blank infilling objectives (n-gram, phrase, and long span), and incorporate lyric-melody relationships into the extraction of harmonized n-grams to ensure the lyric-melody harmony. We also construct a large-scale lyric-melody paired dataset comprising over 200,000 English song pieces for pre-training and fine-tuning. The objective and subjective results indicate that SongGLM can generate melodies from lyrics with significant improvements in both alignment and harmony, outperforming all the previous baseline methods.</p>
+          </div>
+
+          <h2 id="challenges">Lyric-to-Melody Generation Challenges</h2>
+          <div style="text-align:center">
+            <img src="../image/songglm/challenges.jpg" style="width: 60%;">
+          </div>
+          
+          <h2 id="songglm">SongGLM Overview</h2>
+          <div style="text-align:center">
+            <img src="../image/songglm/overview.jpg"  style="width: 60%;">
+            <p style="text-align: left;">Given the paired lyric-melody dataset, we first establish two relationships between lyrics and melodies based on their representative features, and incorporate these relationships into n-gram extraction to select the most harmonized n-grams. Then, we introduce a unified symbolic song representation with 2D alignment encoding and adopt a multi-task pre-training framework that employs hierarchical blank infilling objectives for lyric-to-melody generation.</p>
+          </div>
+
+          <h2 id="songglm">Detailed Framework</h2>
+          <div style="text-align:center">
+            <img src="../image/songglm/detail.jpg">
+          </div>
+
+          <h2 id="datasets">Lyric-Melody Dataset</h2>
+          <table>
+            <tbody>
+              <tr>
+                <td style="width: 150px"><b>Public Corpus</b></td>
+                <td style="width: 500px"><b>Website</b></td>
+                <td style="width: 100px; text-align: center;"><b>Raw</b></td>
+                <td style="width: 100px; text-align: center;"><b>Processed</b></td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  NES
+                </td>
+                <td style="text-align: left">
+                  <a href="https://www.kaggle.com/datasets/imsparsh/nes-mdb-dataset"
+                    target="_blank">https://www.kaggle.com/datasets/imsparsh/nes-mdb-dataset</a>
+                  <br>
+                  <a href="https://github.com/chrisdonahue/nesmdb"
+                    target="_blank">https://github.com/chrisdonahue/nesmdb</a>
+                </td>
+                <td style="text-align: center">
+                  <a href="../data/melodyglm/nes.zip" download>
+                    <img src="../image/melodyglm/download.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                  </a>
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  POP909
+                </td>
+                <td style="text-align: left">
+                  <a href="https://github.com/music-x-lab/POP909-Dataset"
+                    target="_blank">https://github.com/music-x-lab/POP909-Dataset</a>
+                </td>
+                <td style="text-align: center">
+                  <a href="../data/melodyglm/pop909.zip" download>
+                    <img src="../image/melodyglm/download.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                  </a>
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  MTCL
+                </td>
+                <td style="text-align: left">
+                  <a href="https://www.liederenbank.nl/mtc" target="_blank">https://www.liederenbank.nl/mtc</a>
+                </td>
+                <td style="text-align: center">
+                  <a href="../data/melodyglm/mtc.zip" download>
+                    <img src="../image/melodyglm/download.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                  </a>
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  Wikifonia
+                </td>
+                <td style="text-align: left">
+                  <a href="http://www.wikifonia.org/" target="_blank">http://www.wikifonia.org</a>
+                  <br>
+                  <a href="http://www.synthzone.com/files/Wikifonia/Wikifonia.zip"
+                    target="_blank">http://www.synthzone.com/files/Wikifonia/Wikifonia.zip</a>
+                </td>
+                <td style="text-align: center">
+                  <a href="../data/melodyglm/wikifonia.zip" download>
+                    <img src="../image/melodyglm/download.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                  </a>
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  Session
+                </td>
+                <td style="text-align: left">
+                  <a href="https://thesession.org/" target="_blank">https://thesession.org</a>
+                </td>
+                <td style="text-align: center">
+                  <a href="../data/melodyglm/sessions.zip" download>
+                    <img src="../image/melodyglm/download.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                  </a>
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  LMD
+                </td>
+                <td style="text-align: left">
+                  <a href="https://colinraffel.com/projects/lmd/"
+                    target="_blank">https://colinraffel.com/projects/lmd</a>
+                </td>
+                <td style="text-align: center">
+                  <a href="../data/melodyglm/lmd_full.zip" download>
+                    <img src="../image/melodyglm/download.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                  </a>
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  SymphonyNet
+                </td>
+                <td style="text-align: left">
+                  <a href="https://symphonynet.github.io/" target="_blank">https://symphonynet.github.io</a>
+                </td>
+                <td style="text-align: center">
+                  <a href="../data/melodyglm/symphonynet.zip" download>
+                    <img src="../image/melodyglm/download.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                  </a>
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  MetaMIDI
+                </td>
+                <td style="text-align: left">
+                  <a href="https://zenodo.org/record/5142664" target="_blank">https://zenodo.org/record/5142664</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+          <br>
+
+          <table>
+            <tbody>
+              <tr>
+                <td style="width: 150px"><b>Web Collections</b></td>
+                <td style="width: 500px"><b>Website</b></td>
+                <td style="width: 100px; text-align: center;"><b>Raw</b></td>
+                <td style="width: 100px; text-align: center;"><b>Processed</b></td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  MuseScore
+                </td>
+                <td style="text-align: left">
+                  <a href="https://musescore.org" target="_blank">https://musescore.org</a>
+                  <br>
+                  <a href="https://github.com/Xmader/musescore-dataset"
+                    target="_blank">https://github.com/Xmader/musescore-dataset</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  Hooktheory
+                </td>
+                <td style="text-align: left">
+                  <a href="https://www.hooktheory.com" target="_blank">https://www.hooktheory.com</a>
+                  <br>
+                  <a href="https://github.com/wayne391/lead-sheet-dataset"
+                    target="_blank">https://github.com/wayne391/lead-sheet-dataset</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  BitMidi
+                </td>
+                <td style="text-align: left">
+                  <a href="https://bitmidi.com" target="_blank">https://bitmidi.com</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  FreeMidi
+                </td>
+                <td style="text-align: left">
+                  <a href="https://freemidi.org" target="_blank">https://freemidi.org</a>
+                  <br>
+                  <a href="https://github.com/josephding23/Free-Midi-Library"
+                    target="_blank">https://github.com/josephding23/Free-Midi-Library</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  KernScores
+                </td>
+                <td style="text-align: left">
+                  <a href="http://kern.ccarh.org" target="_blank">http://kern.ccarh.org</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  Kunstderfuge
+                </td>
+                <td style="text-align: left">
+                  <a href="https://www.kunstderfuge.com" target="_blank">https://www.kunstderfuge.com</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+              <tr>
+                <td style="text-align: left">
+                  ABC Notation
+                </td>
+                <td style="text-align: left">
+                  <a href="https://abcnotation.com" target="_blank">https://abcnotation.com</a>
+                </td>
+                <td style="text-align: center">
+                  <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+                <td style="text-align: center">
+                    <img src="../image/melodyglm/not_available.svg" alt="可点击下载的图片" style="width: 25px;height: 25px;">
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+          
+
+          <script>
+            (function (i, s, o, g, r, a, m) {
+              i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+              }, i[r].l = 1 * new Date(); a = s.createElement(o),
+                m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+            })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+            ga('create', 'UA-139981676-1', 'auto');
+            ga('send', 'pageview');
+          </script>
+
+          <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.4/highlight.min.js"></script>
+          <script>hljs.initHighlightingOnLoad();</script>
+
+
+
+          <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+         HTML: ["input/TeX","output/HTML-CSS"],
+         TeX: {
+                Macros: {
+                         bm: ["\\boldsymbol{#1}", 1],
+                         argmax: ["\\mathop{\\rm arg\\,max}\\limits"],
+                         argmin: ["\\mathop{\\rm arg\\,min}\\limits"]},
+                extensions: ["AMSmath.js","AMSsymbols.js"],
+                equationNumbers: { autoNumber: "AMS" } },
+         extensions: ["tex2jax.js"],
+         jax: ["input/TeX","output/HTML-CSS"],
+         tex2jax: { inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                    displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
+                    processEscapes: true },
+         "HTML-CSS": { availableFonts: ["TeX"],
+                       linebreaks: { automatic: true } }
+     });
+ </script>
+
+          <script type="text/x-mathjax-config">
+     MathJax.Hub.Config({
+       tex2jax: {
+         skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+       }
+     });
+ </script>
+
+          <script type="text/javascript" async
+            src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+            </script>
+
+
+
+
+</body>
+
+</html>
