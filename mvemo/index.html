@@ -42,13 +42,42 @@
           </div>
 
           <h2 id="annotation">MVAnno: Unified Emotion Annotation Framework</h2>
+          <div style="text-align:left">
+            <p>MVAnno is an innovative emotion annotation framework designed to address the challenges of heterogeneous emotion representations and the scarcity of comprehensive emotion annotations in music video datasets. Building upon the unified emotion representation that integrates emotion category and intensity, MVAnno employs a hierarchical continual fine-tuning process across multiple modalities to obtain accurate emotion annotations.</p>
+            
+            <p>The framework operates on multiple modalities including audio, visual, and textual (lyrics) information from music videos. The hierarchical continual fine-tuning approach allows the framework to progressively refine emotion predictions by leveraging the complementary information from different modalities. This process ensures that the emotion annotations are both accurate and consistent across different types of content.</p>
+            
+            <p>MVAnno's key innovation lies in its ability to handle both static and dynamic emotion annotations. Static annotations provide overall emotion labels for entire music video samples, while dynamic annotations capture the temporal evolution of emotions throughout the video. This dual-level annotation capability enables comprehensive emotion analysis that captures both the global emotional tone and the nuanced emotional changes over time.</p>
+            
+            <p>By utilizing the unified emotion representation, MVAnno can seamlessly integrate categorical emotion labels (e.g., happy, sad, angry) with dimensional emotion labels (e.g., valence and arousal), providing a more comprehensive and flexible annotation framework for music-related emotion recognition tasks.</p>
+          </div>
+          
           <div style="text-align:center">
             <img src="../image/mvemo/annotation.png" style="width: 80%;">
           </div>
 
           <h2 id="dataset">MVEmo Dataset</h2>
           <div style="text-align:left">
-            <p>The MVEmo dataset comprises 11,764 music video samples (7,923 with lyrics and 3,841 without lyrics), establishing it as a large-scale resource for multimodal emotion research. We conduct comprehensive analysis, including basic, modality-specific, and emotion-related analysis, based on the statistics of the MVEmo dataset.</p>
+            <p>The MVEmo dataset is a large-scale music video emotion dataset designed to address the limitations of existing datasets in music-related emotion recognition. The dataset comprises 11,764 music video samples, making it one of the most comprehensive resources for multimodal emotion research in the music domain.</p>
+            
+            <p><strong>Dataset Composition:</strong> The dataset includes 7,923 music videos with lyrics and 3,841 music videos without lyrics, providing a diverse collection that covers various musical genres and styles. This composition enables researchers to study emotion recognition across different modalities and understand the contribution of textual information to emotion understanding.</p>
+            
+            <p><strong>Annotation Scale:</strong> MVEmo provides extensive emotion annotations with 11,000 static emotion labels and 5 million dynamic emotion labels. The static annotations capture the overall emotional tone of each music video, while the dynamic annotations track the temporal evolution of emotions throughout the video, enabling fine-grained emotion analysis at the frame or segment level.</p>
+            
+            <p><strong>Unified Emotion Representation:</strong> All annotations in MVEmo are based on the unified emotion representation framework, which integrates both categorical emotion labels (e.g., happy, sad, angry, calm) and dimensional emotion labels (valence and arousal). This dual representation approach allows for flexible emotion analysis and facilitates comparison with existing datasets that use different emotion representation schemes.</p>
+            
+            <p><strong>Multimodal Features:</strong> Each sample in the dataset includes synchronized audio, visual, and textual (when available) modalities, enabling comprehensive multimodal emotion recognition research. The dataset supports various research tasks including emotion classification, emotion regression, emotion prediction, and cross-modal emotion understanding.</p>
+            
+            <p><strong>Comprehensive Analysis:</strong> The dataset has been thoroughly analyzed across multiple dimensions, including basic statistical analysis, modality-specific analysis, and emotion-related analysis. These analyses provide insights into the distribution of emotions, the relationship between different modalities, and the characteristics of emotion expressions in music videos.</p>
+          </div>
+
+          <h2 id="benchmark">MVEmo-Bench: Multi-Task Benchmark</h2>
+          <div style="text-align:left">
+            <p>MVEmo-Bench is a comprehensive multi-task benchmark designed to evaluate and advance research in music-related emotion recognition (MRER). It addresses a critical gap in the field by providing standardized evaluation protocols and metrics specifically tailored for MRER tasks, enabling fair comparison and systematic progress tracking across different approaches.</p>
+            
+            <p><strong>Multi-Task Evaluation Framework:</strong> MVEmo-Bench encompasses a diverse set of tasks that reflect the complexity and multi-faceted nature of music emotion recognition. These tasks include emotion classification (categorical), emotion regression (dimensional), static emotion prediction, dynamic emotion tracking, and cross-modal emotion understanding. By covering multiple tasks, the benchmark enables comprehensive evaluation of model capabilities across different aspects of emotion recognition.</p>
+            
+            <p><strong>Specialized Evaluation Metrics:</strong> The benchmark provides evaluation metrics specifically designed for MRER tasks, taking into account the unique characteristics of music emotion recognition. These metrics are carefully crafted to assess both the accuracy and the nuanced understanding of emotional expressions in music videos, ensuring that evaluations capture the full spectrum of model performance.</p>
           </div>
 
           <script>
